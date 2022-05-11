@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>三角形</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+  <style type="text/css">
+    canvas {
+      border: 1px solid bisque;
+    }
+  </style>
+
+  <script type="text/javascript">
+    function draw() {
+      // 1. 画简单的图形
+      // const canvas = document.getElementById('tutorial');
+      // if (canvas.getContext) {
+      //   const ctx = canvas.getContext('2d');
+      //   ctx.fillRect(20, 20, 100, 100);
+      //   ctx.clearRect(30, 30, 80, 80);
+      //   ctx.strokeRect(50, 50, 40, 40)
+      // }
+
+      // 2. 画三角形
+      // const canvas = document.getElementById('tutorial');
+      // if (canvas.getContext) {
+      //   const ctx = canvas.getContext('2d');
+      //   ctx.beginPath();
+
+      //   // 笔触
+      //   ctx.moveTo(50, 50);
+      //   ctx.lineTo(80, 70);
+      //   ctx.lineTo(80, 30);
+
+      //   ctx.closePath();
+      //   // 填充
+      //   // ctx.fill();
+
+      //   ctx.stroke();
+
+      // }
+
+
+      // 3.画一个笑脸
+      // const canvas = document.getElementById('tutorial');
+      // if (canvas.getContext) {
+      //   const ctx = canvas.getContext('2d');
+
+      //   ctx.beginPath();
+      //   ctx.arc(75, 75, 50, 0, Math.PI * 2, true) // 画圆-脸
+      //   ctx.moveTo(100, 75);
+      //   ctx.arc(75, 75, 25, 0, Math.PI, false) // 画圆-嘴巴
+      //   ctx.stroke();
+
+      //   // 移动笔触
+      //   ctx.beginPath();
+      //   ctx.moveTo(50, 50);
+      //   ctx.arc(45, 50, 5, 0, Math.PI * 2, true) // 画圆-左眼睛
+      //   ctx.fill();
+
+      //   ctx.beginPath();
+      //   ctx.moveTo(100, 50);
+      //   ctx.arc(95, 50, 5, 0, Math.PI * 2, true) // 画圆-右眼睛
+      //   ctx.fill();
+
+      // }
+
+      // 4.path2d
+      var canvas = document.getElementById('tutorial');
+      if (canvas.getContext) {
+        var ctx = canvas.getContext('2d');
+
+        var rectangle = new Path2D();
+        rectangle.rect(10, 10, 50, 50);
+
+        var circle = new Path2D();
+        circle.moveTo(125, 35);
+        circle.arc(100, 35, 25, 0, 2 * Math.PI);
+
+        ctx.stroke(rectangle);
+        ctx.fill(circle);
+      }
+    }
+  </script>
+</head>
+
+<body onload="draw()">
+  <canvas id="tutorial" width="150" height="150"></canvas>
+</body>
+
+</html>
