@@ -67,20 +67,40 @@
 
       // }
 
-      // 4.path2d
-      var canvas = document.getElementById('tutorial');
+      //   // 4.path2d
+      //   var canvas = document.getElementById('tutorial');
+      //   if (canvas.getContext) {
+      //     var ctx = canvas.getContext('2d');
+
+      //     var rectangle = new Path2D();
+      //     rectangle.rect(10, 10, 50, 50);
+
+      //     var circle = new Path2D();
+      //     circle.moveTo(125, 35);
+      //     circle.arc(100, 35, 25, 0, 2 * Math.PI);
+
+      //     ctx.stroke(rectangle);
+      //     ctx.fill(circle);
+      //   }
+      // }
+
+      // 5. 画桃心
+      const canvas = document.getElementById('tutorial');
       if (canvas.getContext) {
-        var ctx = canvas.getContext('2d');
+        const ctx = canvas.getContext('2d');
 
-        var rectangle = new Path2D();
-        rectangle.rect(10, 10, 50, 50);
+        ctx.beginPath();
 
-        var circle = new Path2D();
-        circle.moveTo(125, 35);
-        circle.arc(100, 35, 25, 0, 2 * Math.PI);
+        ctx.moveTo(75, 40)
+        // bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y) 绘制三次贝塞尔曲线，cp1x,cp1y为控制点一，cp2x,cp2y为控制点二，x,y为结束点。
+        ctx.bezierCurveTo(144, 11, 177, 44, 75, 120);
 
-        ctx.stroke(rectangle);
-        ctx.fill(circle);
+        ctx.moveTo(75, 40)
+        ctx.bezierCurveTo(0, 0, 4, 75, 75, 120);
+        // 在线绘制 https://www.bezier-curve.com/
+
+        ctx.fill();
+
       }
     }
   </script>
