@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>绘制文字</title>
+  <style type="text/css">
+    canvas {
+      border: 1px solid bisque;
+    }
+  </style>
+
+  <script type="text/javascript">
+    function draw() {
+      const ctx = document.getElementById('tutorial').getContext('2d');
+      ctx.font = "14px serif";
+      // 在指定的(x,y)位置填充指定的文本，绘制的最大宽度是可选的.
+      ctx.fillText("我是一个fill文字", 20, 20);
+      // 在指定的(x,y)位置绘制文本边框，绘制的最大宽度是可选的.
+      ctx.strokeText("我是一个stroke文字", 20, 60);
+
+      // 将返回一个 TextMetrics对象的宽度、所在像素，这些体现文本特性的属性。
+      console.log(ctx.measureText("foo").width);
+      // https://www.html5canvastutorials.com/advanced/html5-canvas-get-image-data-tutorial/
+    }
+  </script>
+</head>
+
+<body onload="draw()">
+  <canvas id="tutorial" width="200" height="300"></canvas>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>颜色</title>
+
+  <style type="text/css">
+    canvas {
+      border: 1px solid bisque;
+    }
+  </style>
+
+  <script type="text/javascript">
+    function draw() {
+      // 1.画颜色
+      // const canvas = document.getElementById('tutorial');
+      // if (canvas.getContext) {
+      //   const ctx = canvas.getContext('2d');
+      //   // 画背景
+      //   ctx.fillStyle = 'rgb(255,221,0)';
+      //   ctx.fillRect(0, 0, 150, 37.5);
+      //   ctx.fillStyle = 'rgb(102,204,0)';
+      //   ctx.fillRect(0, 37.5, 150, 37.5);
+      //   ctx.fillStyle = 'rgb(0,153,255)';
+      //   ctx.fillRect(0, 75, 150, 37.5);
+      //   ctx.fillStyle = 'rgb(255,51,0)';
+      //   ctx.fillRect(0, 112.5, 150, 37.5)
+      // }
+
+
+      // // 2. 重复图案
+      // var ctx = document.getElementById('tutorial').getContext('2d');
+
+      // // 创建新 image 对象，用作图案
+      // var img = new Image();
+      // img.src = 'https://mdn.mozillademos.org/files/222/Canvas_createpattern.png';
+      // img.onload = function () {
+
+      //   // 创建图案
+      //   var ptrn = ctx.createPattern(img, 'repeat');
+      //   ctx.fillStyle = ptrn;
+      //   ctx.fillRect(0, 0, 1920, 800);
+      // }
+
+      // 3. 画文字
+      var ctx = document.getElementById('tutorial').getContext('2d');
+
+      ctx.shadowOffsetX = 2;
+      ctx.shadowOffsetY = 2;
+      ctx.shadowBlur = 2;
+      ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+
+      ctx.font = "20px Times New Roman";
+      ctx.fillStyle = "Black";
+      ctx.fillText("Sample String", 5, 30);
+
+    }
+  </script>
+</head>
+
+
+
+
+<body onload="draw()">
+  <canvas id="tutorial" width="200" height="300"></canvas>
+</body>
+
+</html>
