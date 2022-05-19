@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>绘制变形</title>
+  <style type="text/css">
+    canvas {
+      border: 1px solid bisque;
+    }
+  </style>
+
+  <script type="text/javascript">
+    function draw() {
+      const ctx = document.getElementById('tutorial').getContext('2d');
+
+      // 1. 状态保存
+      // ctx.fillRect(0, 0, 200, 200); // 使用默认设置绘制一个矩形
+      // ctx.save();                   // 保存默认状态
+
+
+      // ctx.fillStyle = "#09f";         // 设置颜色状态
+      // ctx.fillRect(25, 25, 150, 150); // 使用新的设置绘制一个矩形
+      // ctx.save();                     // 保存默认状态
+
+
+      // ctx.fillStyle = '#FFF'       // 再次改变颜色配置
+      // ctx.globalAlpha = 0.5;
+      // ctx.fillRect(30, 30, 90, 90);   // 使用新的配置绘制一个矩形
+
+      // ctx.restore();               // 重新加载之前的颜色状态 fillStyle = "#09f"; 
+      // ctx.fillRect(45, 45, 60, 60);   // 使用上一次的配置绘制一个矩形
+
+      // ctx.restore();               // 加载默认颜色配置 fillStyle = 初始值的黑色; 
+      // ctx.fillRect(60, 60, 30, 30);   // 使用加载的配置绘制一个矩形
+
+      // 2. translate 画方格
+      // for (let i = 0; i < 3; i++) {
+      //   for (let j = 0; j < 3; j++) {
+      //     ctx.save();  // 一定要先保存状态
+      //     const x = i * 25;
+      //     const y = j * 25;
+      //     ctx.translate(x, y);
+      //     ctx.fillStyle = 'rgb(' + (51 * i) + ', ' + (255 - 51 * i) + ', 255)';
+      //     console.log(`x=${x},y=${y}`);
+
+      //     ctx.fillRect(0, 0, 25, 25);
+      //     ctx.restore(); // 清楚状态，不然会出现状态缓存
+      //   }
+      // }
+
+
+      // 3.rotate
+
+      // 3.1 移动圆点位置
+      ctx.translate(100, 100);
+
+      for (let i = 0; i < 5; i++) {
+        // 3.2 每一层的样式
+        ctx.save();
+        ctx.fillStyle = 'rgb(' + (51 * i) + ',' + (255 - 51 * i) + ',255)';
+
+        // // 3.3 绘制每一层的圆形
+        for (let j = 0; j <= i * 5; j++) {
+
+          // 旋转的角度 - 每一层
+          ctx.rotate((Math.PI * 2) / (i * 5))
+          // 开始一个新路径画圆, 半径是5
+          ctx.beginPath();
+          // arc(x, y, radius, startAngle, endAngle, anticlockwise)
+          ctx.arc(0, i * 20, 5, 0, Math.PI * 2, true);
+          ctx.fill();
+        }
+        ctx.restore();
+
+      }
+
+    }
+  </script>
+</head>
+
+<body onload="draw()">
+  <canvas id="tutorial" width="400" height="300"></canvas>
+</body>
+
+</html>
