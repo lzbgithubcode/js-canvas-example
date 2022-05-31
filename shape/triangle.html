@@ -86,28 +86,77 @@
 
       // 5. 画桃心
       const canvas = document.getElementById('tutorial');
-      if (canvas.getContext) {
-        const ctx = canvas.getContext('2d');
+      // if (canvas.getContext) {
+      //   const ctx = canvas.getContext('2d');
 
-        ctx.beginPath();
+      //   ctx.beginPath();
 
-        ctx.moveTo(75, 40)
-        // bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y) 绘制三次贝塞尔曲线，cp1x,cp1y为控制点一，cp2x,cp2y为控制点二，x,y为结束点。
-        ctx.bezierCurveTo(144, 11, 177, 44, 75, 120);
+      //   ctx.moveTo(75, 40)
+      //   // bezierCurveTo(cp1x, cp1y, cp2x, cp2y, x, y) 绘制三次贝塞尔曲线，cp1x,cp1y为控制点一，cp2x,cp2y为控制点二，x,y为结束点。
+      //   ctx.bezierCurveTo(144, 11, 177, 44, 75, 120);
 
-        ctx.moveTo(75, 40)
-        ctx.bezierCurveTo(0, 0, 4, 75, 75, 120);
-        // 在线绘制 https://www.bezier-curve.com/
+      //   ctx.moveTo(75, 40)
+      //   ctx.bezierCurveTo(0, 0, 4, 75, 75, 120);
+      //   // 在线绘制 https://www.bezier-curve.com/
 
-        ctx.fill();
+      //   ctx.fill();
+      // }
 
+
+      // 6. 画五角星
+
+      const ctx = canvas.getContext('2d');
+      ctx.fillRect(0, 0, 150, 150);
+      ctx.translate(75, 75);
+
+      // Create a circular clipping path
+      ctx.beginPath();
+      ctx.arc(0, 0, 70, 0, Math.PI * 2, true);
+      ctx.clip();
+
+
+      // 背景
+      const lingrad = ctx.createLinearGradient(0, -75, 0, 75);
+      lingrad.addColorStop(0, '#232256');
+      lingrad.addColorStop(1, '#143778');
+
+      ctx.fillStyle = lingrad;
+      ctx.fillRect(-100, -100, 200, 200);
+
+
+      // 画信息
+      for (var j = 1; j < 50; j++) {
+        ctx.save();
+        ctx.fillStyle = '#fff';
+        ctx.translate(100 - Math.floor(Math.random() * 200),
+          100 - Math.floor(Math.random() * 200));
+        drawStar(ctx, Math.floor(Math.random() * 4) + 2);
+        ctx.restore();
       }
+
+    }
+
+    function drawStar(ctx, r) {
+      ctx.save();
+      ctx.beginPath()
+      ctx.moveTo(r, 0);
+      for (var i = 0; i < 9; i++) {
+        ctx.rotate(Math.PI / 5);
+        if (i % 2 == 0) {
+          ctx.lineTo((r / 0.525731) * 0.200811, 0);
+        } else {
+          ctx.lineTo(r, 0);
+        }
+      }
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
     }
   </script>
 </head>
 
 <body onload="draw()">
-  <canvas id="tutorial" width="150" height="150"></canvas>
+  <canvas id="tutorial" width="200" height="200"></canvas>
 </body>
 
 </html>
