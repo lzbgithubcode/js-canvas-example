@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>饼图</title>
+  <style type="text/css">
+    body{
+      text-align: center;
+    }
+    canvas {
+        border: 1px solid bisque;
+    }
+  </style>
+
+</head>
+<body>
+
+      <canvas id="canvas" width="400px" height="400px"></div>
+
+      <script type="text/javascript">
+
+        // 绘制6等分扇形图
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
+        const width = ctx.canvas.width;
+        const height = ctx.canvas.height;
+
+        // 需要等分数量
+        const num = 6;
+        const centerX = width * 0.5;
+        const centerY = height * 0.5;
+        const radius = 50;
+        const anticlockwise = false; //  false 顺时针   true 逆时针
+
+        let startAngle = 0;
+        let endAngle = 0;
+        // 每次的角度
+        const angle = Math.PI * 2 / num;
+
+
+        /*获取随机颜色*/
+        const  getRandomColor =  () => {
+            var r = Math.floor(Math.random() * 256);
+            var g = Math.floor(Math.random() * 256);
+            var b = Math.floor(Math.random() * 256);
+            return 'rgb(' + r + ',' + g + ',' + b + ')';
+        }
+
+     
+        // /*上一次绘制的结束弧度等于当前次的起始弧度*/
+        for(let i = 0; i < num; i++){
+          startAngle = i * angle;
+          endAngle = (i+1) * angle;
+
+          ctx.beginPath();
+          ctx.moveTo(centerX, centerY);
+          ctx.arc( centerX, centerY, radius, startAngle, endAngle, anticlockwise);
+
+           // ctx.closePath();
+          ctx.fillStyle = getRandomColor();
+         
+          ctx.fill();
+
+        }
+
+
+         
+
+      </script>
+
+
+      <script  type="text/javascript">
+
+        // 1.绘制圆弧
+        // const canvas = document.getElementById('canvas');
+        // const ctx = canvas.getContext('2d');
+
+        // const width = ctx.canvas.width;
+        // const height = ctx.canvas.height;
+        //  ctx.beginPath();
+
+        //  // arc(x, y, radius, startAngle, endAngle, anticlockwise)
+        //  /**
+        //   *            1.5 Math.PI
+        //   *            |
+        //   *            |
+        //  Math.PI ----- |--------- 0
+        //   *            |
+        //   *            |
+        //   *         Math.PI * 0.5
+        //   * 
+        //   * 
+        //   * */
+        //  const centerX = width * 0.5;
+        //  const centerY = height * 0.5;
+        //  const radius = 50;
+        //  const startAngle = 0; 
+        //  const endAngle = Math.PI * 0.5;
+        //  const anticlockwise = true; //  false 顺时针   true 逆时针
+        //  ctx.arc( centerX, centerY, radius, startAngle, endAngle, anticlockwise);
+        //  ctx.closePath();
+        //  ctx.fill();
+
+      </script>
+</body>
+</html>
+
