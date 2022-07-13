@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>e-chart-map</title>
+  <script type="text/javascript" src="./echarts.js"></script>
+</head>
+<body>
+
+      <div id="map" style="width: 600px; height: 600px;"></div>
+
+      <script  type="text/javascript">
+
+     
+      // 注册地图
+      fetch('http://192.168.18.189:3000/map/full-china.json')
+        .then(response => response.json())
+        .then(geoJSON => {
+          echarts.registerMap("china", {geoJSON:geoJSON});
+
+              var option = {
+                title: {
+                    text: '中国地图',
+                    left: 'center'
+                    },
+
+            tooltip: { // 点的图例
+              alwaysShowContent: true,
+              enterable: true,
+              formatter: function (params) {
+                var value = params.value;
+                var a = '<br> <a href="http://www.baidu.com" style="color: red">查看详情</a>'
+                return params.name + ': ' + value[2] + a;
+              }
+            },
+             geo: {
+                show: true, // 是否显示地理坐标系组件。
+                map: "china", // 与注册registerMap名称一致
+                roam: true,  // 是否开启鼠标缩放和平移漫游。默认不开启。如果只想要开启缩放或者平移，可以设置成 'scale' 或者 'move'。设置成 true 为都开启
+                projection: null, // 自定义投影 该配置并非是必要的。
+                // center: [], // 当前视角的中心点，默认使用原始坐标（经纬度）。如果设置了projection则用投影后的坐标表示。
+                aspectScale: 1, // 这个参数用于 scale 地图的长宽比，如果设置了projection则无效。最终的 aspect 的计算方式是：geoBoundingRect.width / geoBoundingRect.height * aspectScale。
+                // boundingCoords:[],  二维数组，定义定位的左上角以及右下角分别所对应的经纬度
+                zoom: 1.3,   // 当前视角的缩放比例。
+                // scaleLimit:{   // 滚轮缩放的极限控制，通过min, max最小和最大的缩放值，默认的缩放为1。
+                //   min:0.8,
+                //   max:1.5
+                // },
+                nameMap:{  // 自定义地区的名称映射
+                  'China' : '中国',
+                  "新疆维吾尔自治区": "我是新疆"
+                },
+                selectedMode:"single", // 选中模式，表示是否支持多个选中，默认关闭，支持布尔值和字符串，字符串取值可选'single'表示单选，或者'multiple'表示多选。
+              
+                //   right: "2%",
+                top: "15%",
+
+                // 图形上的文本标签，可用于说明图形的一些数据信息，比如值，名称等。 
+                label: {
+                   show: true, //是否显示标签。
+                   position: "top", // 标签的位置。支持：top / left / right / bottom / inside / insideLeft / insideRight / insideTop / insideBottom / insideTopLeft / insideBottomLeft / insideTopRight / insideBottomRight
+                   distance :5 , //  距离图形元素的距离。当 position 为字符描述值（如 'top'、'insideRight'）时候有效。
+                   rotate: 90, // 标签旋转。从 -90 度到 90 度。正值是逆时针
+                   offset:[0,0], // 是否对文字进行偏移。默认不偏移。例如：[30, 40] 表示文字在横向上偏移 30，纵向上偏移 40。
+                   formatter: '{b}: {@name}', // 标签内容格式器，支持字符串模板和回调函数两种形式，字符串模板与回调函数返回的字符串均支持用 \n 换行。
+                   normal: {
+                        show: true,
+                        textStyle: {
+                            color: "#fff"
+                        }
+                    },
+                    emphasis: {
+                        textStyle: {
+                            color: "#fff"
+                        }
+                    }
+                },
+
+                // 地图区域的多边形 图形样式。
+                itemStyle: {
+                    show: true,
+                    // normal 是图形在默认状态下的样式；
+                    borderColor: "rgba(91,194,211,1)", // 图形的描边颜色。支持的颜色格式同 color，不支持回调函数。
+                    areaColor: "rgba(16,46,105,1)",  // 地图区域的颜色。
+                    borderWidth: 1,  // 描边线宽。为 0 时无描边。
+                    borderType: "solid", // 描边类型。
+                    opacity : 1, // 图形透明度。支持从 0 到 1 的数字，为 0 时不绘制该图形。
+                    shadowColor: "rgba(56,164,255,.26)", // 图形阴影的模糊大小。该属性配合 shadowColor,shadowOffsetX, shadowOffsetY 一起设置图形的阴影效果。
+                    // shadowBlur: 10,
+                    // shadowOffsetX: 10,
+                    // shadowOffsetY:10
+                },
+                // emphasis 是图形在高亮状态下的样式，比如在鼠标悬浮或者图例联动高亮时。
+                 emphasis: {
+                        itemStyle:{
+                          areaColor: "#FF5555",
+                          shadowOffsetX: 5,
+                          shadowOffsetY: 2,
+                          borderWidth: 1,
+                          borderColor: "rgba(139, 255, 254, 1)"
+                        }
+                  },
+                  // 选中状态样式
+                  select:{
+                    disabled: false,
+                    itemStyle:{
+                      areaColor: "#FF5555",
+                    },
+                  }, 
+                     
+
+                silent: false, // 图形是否不响应和触发鼠标事件，默认为 false，即响应和触发鼠标事件
+                // 特殊显示的区域
+                regions: [{
+                  name: '广东省',
+                  itemStyle: {
+                      areaColor: 'red',
+                      color: 'red'
+                  }
+                }]
+              },
+              // 散点图
+              series: [
+                    {
+                      type: 'effectScatter',   //  指明图表类型：带涟漪效果的散点图
+                      coordinateSystem: 'geo', //  指明绘制在geo坐标系上
+                      rippleEffect:{   // 点 的效果
+                        color: "red",
+                        number: 3 ,
+                        period: 4 ,
+                        scale: 10.0 ,
+                        brushType: 'fill' ,
+                      },
+                      symbolSize:5, // 点的 大小
+                      data:[
+                      {
+                          name: '四川1',
+                          customId: "11111",
+                          value: [106.55, 29.5, 55], // // value的前两项是经纬度坐标，
+                        },
+                        {
+                          name: '四川2',
+                          customId: "22222",
+                          value: [104.55, 29.5, 55], // // value的前两项是经纬度坐标，
+                        },
+                      ],
+                      // 描述点 的样式
+                      itemStyle:{
+                        color: (param)=>{
+                          if(param.data.customId === "11111" ){
+                             return "blue";
+                          }else{
+                            return "yellow";
+                          }
+                          
+                        },
+                      }
+                    }
+              ]
+       };
+        const myChart =  echarts.init(document.getElementById("map"));    
+          myChart.setOption(option);
+        });
+
+        
+
+
+
+     
+      
+
+
+      </script>
+</body>
+</html>
+
