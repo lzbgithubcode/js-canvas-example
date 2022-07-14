@@ -19,7 +19,67 @@
 
       <canvas id="canvas" width="400px" height="400px"></div>
 
-      <script type="text/javascript">
+
+        <script type="text/javascript">
+
+          // 更具数据绘制
+          const canvas = document.getElementById('canvas');
+          const ctx = canvas.getContext('2d');
+  
+          const width = ctx.canvas.width;
+          const height = ctx.canvas.height;
+          
+          const dataList = [10,20,30,10,60,70];
+  
+          // 需要分的数量
+          const num = dataList.length;
+          const centerX = width * 0.5;
+          const centerY = height * 0.5;
+          const radius = 100;
+          const anticlockwise = false; //  false 顺时针   true 逆时针
+  
+          let startAngle = 0;
+          let endAngle = 0;
+
+          //总计 所有数据的
+          let totalValue = 0;
+          dataList.map(number => {
+               totalValue = totalValue + number;
+          });
+
+  
+  
+          /*获取随机颜色*/
+          const  getRandomColor =  () => {
+              var r = Math.floor(Math.random() * 256);
+              var g = Math.floor(Math.random() * 256);
+              var b = Math.floor(Math.random() * 256);
+              return 'rgb(' + r + ',' + g + ',' + b + ')';
+          }
+  
+          // /*上一次绘制的结束弧度等于当前次的起始弧度*/
+          for(let i = 0; i < num; i++){
+            const value = dataList[i];
+            // 每次的弧度 = 360 * 当前值 / 总值的占比
+            const angle = (Math.PI * 2) * (value / totalValue);
+
+             // 当前开始弧度 = 上一次结束的弧度
+             startAngle = endAngle;
+            // 结束弧度 =  上一次的开始 + 当前要绘制的弧度
+            endAngle = startAngle + angle;
+  
+            // 绘制圆弧
+            ctx.beginPath();
+            ctx.moveTo(centerX, centerY);
+            ctx.arc( centerX, centerY, radius, startAngle, endAngle, anticlockwise);
+            ctx.closePath();
+            ctx.fillStyle = getRandomColor();
+            ctx.fill();
+  
+          }
+        </script>
+
+      <!-- <script type="text/javascript">
 
         // 绘制6等分扇形图
         const canvas = document.getElementById('canvas');
@@ -32,7 +92,7 @@
         const num = 6;
         const centerX = width * 0.5;
         const centerY = height * 0.5;
-        const radius = 50;
+        const radius = 100;
         const anticlockwise = false; //  false 顺时针   true 逆时针
 
         let startAngle = 0;
@@ -49,7 +109,6 @@
             return 'rgb(' + r + ',' + g + ',' + b + ')';
         }
 
-     
         // /*上一次绘制的结束弧度等于当前次的起始弧度*/
         for(let i = 0; i < num; i++){
           startAngle = i * angle;
@@ -59,17 +118,13 @@
           ctx.moveTo(centerX, centerY);
           ctx.arc( centerX, centerY, radius, startAngle, endAngle, anticlockwise);
 
-           // ctx.closePath();
+          ctx.closePath();
           ctx.fillStyle = getRandomColor();
          
           ctx.fill();
 
         }
-
-
-         
-
-      </script>
+      </script> -->
 
 
       <script  type="text/javascript">
