@@ -12,7 +12,12 @@
     }
   </style>
 
+ 
   <script type="text/javascript">
+    /**
+     *   绘制文本的源点 -> 左上角(0.0) 但是是从文字的左下角开始绘制，也就是说绘制（0,0）是看不到文字的，必须绘制文字的高度 
+     *    因为文字的textBaseline = alphabetic  如果设置文字的textBaseline = “top” 可以正常习惯的绘制方式
+     * */
     function draw() {
       const ctx = document.getElementById('tutorial').getContext('2d');
       ctx.font = "14px serif";
