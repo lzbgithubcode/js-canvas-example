@@ -69,9 +69,20 @@ canvas.onclick = function(event){
   const graphData = cacheColor[color];
 
   console.log("拾取到color颜色========",color,graphData);
-  drawSelectGraph(graphData.centerX, graphData.centerY, graphData.radius, graphData.startAngle,graphData.endAngle, graphData.anticlockwise, color)
-}
-
+  if(graphData){
+    // 绘制选择图形
+    drawSelectGraph(
+      graphData.centerX +5, 
+      graphData.centerY+ 5, 
+      graphData.radius + 10, 
+      graphData.startAngle,
+      graphData.endAngle, 
+      graphData.anticlockwise, 
+      color)
+  }
+  
+  }
+ 
 
 
 /*获取随机颜色*/
