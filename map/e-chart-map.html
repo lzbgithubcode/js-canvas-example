@@ -18,9 +18,10 @@
       fetch('http://192.168.18.189:3000/map/full-china.json')
         .then(response => response.json())
         .then(geoJSON => {
+          console.log("============",geoJSON);
           echarts.registerMap("china", {geoJSON:geoJSON});
 
-              var option = {
+          var option = {
                 title: {
                     text: '中国地图',
                     left: 'center'
@@ -141,9 +142,9 @@
                           value: [106.55, 29.5, 55], // // value的前两项是经纬度坐标，
                         },
                         {
-                          name: '四川2',
+                          name: 'dddd',
                           customId: "22222",
-                          value: [104.55, 29.5, 55], // // value的前两项是经纬度坐标，
+                          value: [116.39852,39.891854, 55], // // value的前两项是经纬度坐标，
                         },
                       ],
                       // 描述点 的样式
@@ -159,8 +160,8 @@
                       }
                     }
               ]
-       };
-        const myChart =  echarts.init(document.getElementById("map"));    
+            };
+          const myChart =  echarts.init(document.getElementById("map"));    
           myChart.setOption(option);
         });
 
