@@ -9,16 +9,38 @@
     body{
       text-align: center;
     }
-    canvas {
-        border: 1px solid bisque;
+    .canvas-box{
+      width: 400px;
+      height: 400px;
+      border: 1px solid bisque;
+      position: relative;
+      
+    }
+    
+    .top-canvas{
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-color: rebeccapurple;
+      z-index: 2;
+      display: none;
+    
+    }
+    .graph-canvas{
+      position: absolute;
+      left: 0;
+      top: 0;
+      background-color: yellow;
     }
   </style>
 
 </head>
 <body>
-  
-      <canvas id="topCanvas" width="400px" height="400px"></canvas>
-      <canvas id="canvas" width="400px" height="400px"></canvas>
+      <div class="canvas-box">
+        <canvas id="topCanvas" class="top-canvas" width="400px" height="400px"></canvas>
+        <canvas id="canvas" class="graph-canvas" width="400px" height="400px"></canvas>
+      </div>
+     
       <script type="text/javascript" src="./ColorPickup.js"> </script>
 </body>
 </html>

@@ -72,16 +72,18 @@ canvas.onclick = function(event){
   if(graphData){
     // 绘制选择图形
     drawSelectGraph(
-      graphData.centerX +5, 
-      graphData.centerY+ 5, 
+      graphData.centerX, 
+      graphData.centerY, 
       graphData.radius + 10, 
       graphData.startAngle,
       graphData.endAngle, 
       graphData.anticlockwise, 
       color)
+      topCanvas.style.display = "block";
+      topCanvas.style.opacity = "0.5";
   }
   
-  }
+}
  
 
 
