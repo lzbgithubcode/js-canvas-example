@@ -52,6 +52,7 @@
        preMoveSelected = true;
        
        // 绘制地图
+       drawSelectRegionMap(geoInfo);
     }
 
 
@@ -108,7 +109,9 @@
                   return;
                 }
                 if(geoInfo && geoInfo.randomColor == colorKey){
-                   mapHashColor[colorKey]
+                   mapHashColor[colorKey].coordinates.forEach(coordinateGroup =>{
+                     console.log("======coordinateGroup======",coordinateGroup);
+                   })
                 }
          })
 
@@ -191,7 +194,7 @@
      */
     function clear(context){
        if(context){
-          context.clearRect(0,0,context.width. context.height);
+          context.clearRect(0,0,context.width ,context.height);
           return;
        }
        mapCtx.clearRect(0, 0, mapCtx.width, mapCtx.height);
