@@ -9,6 +9,7 @@
     const mapDom = document.getElementById("map");
     const width = mapDom.clientWidth;
     const height = mapDom.clientHeight;
+    mapDom.style = `position: relative; width:${width}; height:${height};  cursor: pointer;`
 
 
     // 2. 创建canvas 
@@ -22,8 +23,8 @@
     mapCtx.width =  mapCanvas.width = hiddenCanvas.width = hiddenCtx.width =  topCanvas.width = topCtx.width = width;
     mapCtx.height =  mapCanvas.height = hiddenCanvas.height = hiddenCtx.height =  topCanvas.height = topCtx.height = height;
     mapDom.appendChild(mapCanvas);
-    mapDom.appendChild(hiddenCanvas);
-
+    mapDom.appendChild(topCanvas);
+  
 
     // 4. 初始化地图
     const mapHashColor = {};
@@ -41,13 +42,17 @@
      * 监听move
      */
     function moveChange(e){
-       
        // 获取触摸的color
        const keyColor = getHexColor(e);
        // 获取地图信息
        const geoInfo = mapHashColor[keyColor];
        
        if(!geoInfo){
+         // 没有数据就不渲染
+         topCanvas.style = "display:none;";
+          preMoveSelected && drawSelectRegionMap();
+          preMoveSelected = false;
+          return 
        }
        preMoveSelected = true;
        
@@ -103,14 +108,25 @@
       *  绘制区域地图
       */
      function drawSelectRegionMap(geoInfo){
-         clear(topCtx);
+        // 顶层canvas 显示
+        topCanvas.style = "position: absolute; left:0; top:0; pointer-events: none; display:block;";
+        
          Object.keys(mapHashColor).forEach(colorKey => {
                 if(lastSelectColorKey == colorKey){
                   return;
                 }
+               
                 if(geoInfo && geoInfo.randomColor == colorKey){
+                  // 清楚绘制的模板
+                   clear(topCtx);
                    mapHashColor[colorKey].coordinates.forEach(coordinateGroup =>{
-                     console.log("======coordinateGroup======",coordinateGroup);
+                    const coordinateItem = coordinateGroup[0];
+                    lastSelectColorKey = colorKey;
+                    console.log("绘制图形===========", mapHashColor[colorKey]);
+                      // 绘制每一个图形
+                      drawOneGraph(topCtx,coordinateItem, 1,  "#FFC0CB", "#07467f",true);
+                      const point = geoToPoint(geoInfo.center);
+                      drawGraphText(topCtx,point, "#ffffff", geoInfo.name);
                    })
                 }
          })
